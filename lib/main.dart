@@ -1,3 +1,4 @@
+import 'package:clone_netflix/screen/netflix_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,11 +21,11 @@ class _RootState extends State<Root> {
   List<GetPage> renderPages() {
 
     return [
-      // GetPage(
-      //   name: '/',
-      //   page: () => ,
-      //   transition: Transition.noTransition,
-      // ),
+      GetPage(
+        name: '/netflixMain',
+        page: () => NetflixMain(),
+        transition: Transition.noTransition,
+      ),
     ];
   }
 
@@ -32,7 +33,12 @@ class _RootState extends State<Root> {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'FlutterStudy',
-      initialRoute: '/',
+      theme: ThemeData(
+        brightness: Brightness.dark,
+        primaryColor: Colors.black,
+        accentColor: Colors.white,
+      ),
+      initialRoute: '/netflixMain',
       debugShowCheckedModeBanner: false,
       getPages: renderPages(),
     );
