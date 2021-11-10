@@ -1,4 +1,5 @@
 import 'package:clone_netflix/layout/bottom_bar.dart';
+import 'package:clone_netflix/screen/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,10 +9,10 @@ class NetflixMain extends StatefulWidget{
 
 
   @override
-  _NeflixMainState createState() => _NeflixMainState();
+  _NetflixMainState createState() => _NetflixMainState();
 }
 
-class _NeflixMainState extends State<NetflixMain> with SingleTickerProviderStateMixin {
+class _NetflixMainState extends State<NetflixMain> with SingleTickerProviderStateMixin {
   TabController? tabController;
 
   @override
@@ -24,20 +25,21 @@ class _NeflixMainState extends State<NetflixMain> with SingleTickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(length: 4,
+      child: Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(height: 50),
-            ],
-          ),
+        child: TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          children: <Widget>[
+            HomeScreen(),
+            Container(),
+            Container(),
+            Container(),
+          ]
         ),
       ),
       bottomNavigationBar: BottomBar(),
+    ),
     );
   }
 }
