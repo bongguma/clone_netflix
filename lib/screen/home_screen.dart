@@ -1,3 +1,4 @@
+import 'package:clone_netflix/layout/carouse_movie.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,7 +52,7 @@ class _NetflixHomeState extends State<HomeScreen> {
   List<MovieData> movieList = [
     MovieData.fromMap({
       'title':'사랑의 불시착',
-      'content':'',
+      'content':'로맨스',
       'poster' : 'images/netflix_poster.png',
       'like' : false,
     })
@@ -63,8 +64,15 @@ class _NetflixHomeState extends State<HomeScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TopBar(),
+    return ListView(
+      children:[
+        Stack(
+          children: [
+            CarouseMovie(movieList: movieList),
+            TopBar(),
+          ],
+        )
+      ],
     );
   }
 
