@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class BottomBar extends StatelessWidget {
@@ -9,13 +10,13 @@ class BottomBar extends StatelessWidget {
   /* 타입에 맞는 화면이동 */
   movePage(String type) {
     switch (type) {
+      case 'HOME':
+        break;
+      case 'LATER':
+        break;
       case 'SEARCH':
         break;
-      case 'ADD':
-        break;
-      case 'LIST':
-        break;
-      case 'ACCOUNT':
+      case 'SAVE':
         break;
     }
   }
@@ -64,10 +65,10 @@ class BottomBar extends StatelessWidget {
       height: 60,
       child: Row(
         children: [
-          bottomNaviBarItem('SEARCH', Icons.home, '홈'),
-          bottomNaviBarItem('ADD', Icons.home, '공개예정'),
-          bottomNaviBarItem('LIST', Icons.search, '검색'),
-          bottomNaviBarItem('ACCOUNT', Icons.arrow_downward_rounded, '저장한 콘텍츠 목록'),
+          bottomNaviBarItem('HOME', Icons.home, '홈'),
+          bottomNaviBarItem('LATER', Icons.home, '공개예정'),
+          bottomNaviBarItem('SEARCH', Icons.search, '검색'),
+          bottomNaviBarItem('SAVE', Icons.arrow_downward_rounded, '저장한 콘텍츠 목록'),
         ],
       ),
     );
