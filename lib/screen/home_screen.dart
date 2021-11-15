@@ -1,4 +1,5 @@
 import 'package:clone_netflix/layout/carouse_movie.dart';
+import 'package:clone_netflix/layout/circle_slider.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +56,12 @@ class _NetflixHomeState extends State<HomeScreen> {
       'content':'로맨스',
       'poster' : 'images/netflix_poster.png',
       'like' : false,
+    }),
+    MovieData.fromMap({
+      'title':'사랑의 불시착',
+      'content':'로맨스',
+      'poster' : 'images/netflix_poster.png',
+      'like' : false,
     })
   ];
 
@@ -71,7 +78,8 @@ class _NetflixHomeState extends State<HomeScreen> {
             CarouseMovie(movieList: movieList),
             TopBar(),
           ],
-        )
+        ),
+        CircleSlider(movieList: movieList),
       ],
     );
   }
