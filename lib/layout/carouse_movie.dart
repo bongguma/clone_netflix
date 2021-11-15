@@ -52,9 +52,10 @@ class _CarouseMovieState extends State<CarouseMovie> {
     return Container(
       child: Column(
         children: [
-          likeList![_currentPage] ? IconButton( icon: Icon(Icons.check), onPressed: (){
+          likeList![_currentPage] ? IconButton(
+              icon: Icon(Icons.check), onPressed: () {
 
-          }) : IconButton( icon: Icon(Icons.add), onPressed: (){}),
+          }) : IconButton(icon: Icon(Icons.add), onPressed: () {}),
           Text('내가 찜한 콘텐츠', style: TextStyle(fontSize: 11.0),)
         ],
       ),
@@ -68,7 +69,7 @@ class _CarouseMovieState extends State<CarouseMovie> {
         padding: EdgeInsets.only(right: 10.0),
         child: FlatButton(
           color: Colors.white,
-          onPressed: (){
+          onPressed: () {
 
           },
           child: Row(
@@ -90,8 +91,8 @@ class _CarouseMovieState extends State<CarouseMovie> {
       padding: EdgeInsets.only(right: 10.0),
       child: Column(
         children: [
-          IconButton( icon: Icon(Icons.info),
-              onPressed: (){
+          IconButton(icon: Icon(Icons.info),
+              onPressed: () {
 
               }),
           Text('정보', style: TextStyle(
@@ -124,12 +125,36 @@ class _CarouseMovieState extends State<CarouseMovie> {
                 showInfo(),
               ],
             ),
+          ),
+          Container(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: indicator(likeList!, _currentPage),
+            )
           )
         ],
       ),
     );
   }
+}
 
 
+List<Widget> indicator(List? list, int currentPage) {
+  List<Widget> resultList = [];
+  for (var i = 0; i < list!.length; i++) {
+    resultList.add(
+        Container(
+          width: 8.0,
+          height: 8.0,
+          margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle, color: currentPage == i
+              ? Colors.white
+              : Colors.white.withOpacity(0.3),
+          ),
+        )
+    );
+  }
 
+  return resultList;
 }
