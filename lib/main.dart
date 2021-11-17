@@ -1,3 +1,4 @@
+import 'package:clone_netflix/screen/detail_screen.dart';
 import 'package:clone_netflix/screen/netflix_main.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,10 @@ class _RootState extends State<Root> {
         name: '/netflixMain',
         page: () => NetflixMain(),
         transition: Transition.noTransition,
+      ),
+      GetPage(
+        name: '/netflixDetail/:title',
+        page: () => DetailScreen(),
       ),
     ];
   }

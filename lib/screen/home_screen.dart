@@ -1,3 +1,4 @@
+import 'package:clone_netflix/layout/box_slider.dart';
 import 'package:clone_netflix/layout/carouse_movie.dart';
 import 'package:clone_netflix/layout/circle_slider.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
@@ -80,6 +81,7 @@ class _NetflixHomeState extends State<HomeScreen> {
           ],
         ),
         CircleSlider(movieList: movieList),
+        BoxleSlider(movieList: movieList),
       ],
     );
   }

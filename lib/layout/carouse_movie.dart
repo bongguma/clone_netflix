@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CarouseMovie extends StatefulWidget {
   final List<MovieData> movieList;
@@ -93,7 +94,9 @@ class _CarouseMovieState extends State<CarouseMovie> {
         children: [
           IconButton(icon: Icon(Icons.info),
               onPressed: () {
-
+                var movieData = movieList![_currentPage];
+                // print('movieData :: ' + movieData.toString());
+                Get.toNamed('/netflixDetail/title');
               }),
           Text('정보', style: TextStyle(
             fontSize: 11.0,
