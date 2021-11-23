@@ -24,6 +24,20 @@ class _DetailState extends State<DetailScreen> {
     print('argument :: ${movieData!.title} content :: ${movieData!.content}');
   }
 
+  /* movieDetail한 정보 보여주는 Widget */
+  Widget movieDetailInfo() {
+    return Container(
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage(movieData!.poster),
+        fit: BoxFit.cover,
+      )),
+      child: blurDetailPoster(),
+    );
+  }
+
+  /* poster 뒷 면 blur 이미지 Widget */
   Widget blurDetailPoster() {
     return ClipRect(
       child: BackdropFilter(
@@ -50,25 +64,7 @@ class _DetailState extends State<DetailScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(3.0),
-                  width: double.infinity / 2,
-                  color: Colors.red,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          Colors.red.withOpacity(1.0)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.play_arrow),
-                        Text('재생'),
-                      ],
-                    ),
-                  ),
-                ),
+                playBtn(),
                 Container(
                   padding: EdgeInsets.all(5.0),
                   child: Text(''),
@@ -76,6 +72,29 @@ class _DetailState extends State<DetailScreen> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+
+  /* 재생 버튼 Widget */
+  Widget playBtn() {
+    return Container(
+      padding: EdgeInsets.all(3.0),
+      width: 380,
+      color: Colors.red,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(Colors.red.withOpacity(1.0)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.play_arrow),
+            Text('재생'),
+          ],
         ),
       ),
     );
@@ -90,15 +109,7 @@ class _DetailState extends State<DetailScreen> {
             children: [
               Stack(
                 children: [
-                  Container(
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                      image: AssetImage(movieData!.poster),
-                      fit: BoxFit.cover,
-                    )),
-                    child: blurDetailPoster(),
-                  )
+                  movieDetailInfo(),
                 ],
               )
             ],

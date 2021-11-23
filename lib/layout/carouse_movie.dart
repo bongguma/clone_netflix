@@ -21,19 +21,15 @@ class _CarouseMovieState extends State<CarouseMovie> {
   List<bool>? likeList;
 
   int _currentPage = 0;
-  String? _currentKeyword;
 
   @override
   void initState() {
     super.initState();
 
     movieList = widget.movieList;
-    titleList = movieList!.map((movie) => movie.title).toList();
     imageList = movieList!.map((movie) => Image.asset(movie.poster)).toList();
     contentList = movieList!.map((movie) => movie.content).toList();
     likeList = movieList!.map((movie) => movie.like).toList();
-
-    _currentKeyword = contentList![0];
   }
 
   Widget contentSlider() {
@@ -44,7 +40,6 @@ class _CarouseMovieState extends State<CarouseMovie> {
           onPageChanged: (index, reason) {
             setState(() {
               _currentPage = index;
-              _currentKeyword = contentList![_currentPage];
             });
           },
         ));
@@ -127,7 +122,7 @@ class _CarouseMovieState extends State<CarouseMovie> {
           contentSlider(),
           Container(
             padding: EdgeInsets.symmetric(vertical: 3.0, horizontal: 8.0),
-            child: Text(_currentKeyword!),
+            child: Text(contentList![_currentPage]),
           ),
           Container(
             child: Row(
