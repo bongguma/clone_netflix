@@ -28,7 +28,7 @@ class _RootState extends State<Root> {
         transition: Transition.noTransition,
       ),
       GetPage(
-        name: '/netflixDetail/:title',
+        name: '/netflixDetail',
         page: () => DetailScreen(),
       ),
     ];

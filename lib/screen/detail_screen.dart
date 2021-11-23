@@ -5,34 +5,29 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 
-class DetailScreen extends StatefulWidget{
-
+class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key}) : super(key: key);
-
 
   @override
   _DetailState createState() => _DetailState();
 }
 
-
 class _DetailState extends State<DetailScreen> {
-  var movieData;
+  MovieData? movieData;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    movieData = Get.parameters['title'];
-    print('movieData :: ' + movieData);
+    movieData = Get.arguments as MovieData;
+    print('argument :: ${movieData!.title} content :: ${movieData!.content}');
   }
 
-  Widget blurDetailPoster(){
+  Widget blurDetailPoster() {
     return ClipRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(
-            sigmaX: 10.0, sigmaY: 10.0
-        ),
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
         child: Container(
           alignment: Alignment.center,
           color: Colors.black.withOpacity(0.1),
@@ -41,9 +36,7 @@ class _DetailState extends State<DetailScreen> {
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 10.0),
-                  // TODO image asset 대입
-                  child: Container(),
-                  // Image.asset(''),
+                  child: Image.asset(movieData!.poster),
                   height: 300.0,
                 ),
                 Container(
@@ -59,12 +52,13 @@ class _DetailState extends State<DetailScreen> {
                 ),
                 Container(
                   padding: EdgeInsets.all(3.0),
-                  width: double.infinity/2,
+                  width: double.infinity / 2,
                   color: Colors.red,
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red.withOpacity(1.0)),
+                      backgroundColor: MaterialStateProperty.all(
+                          Colors.red.withOpacity(1.0)),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -99,12 +93,10 @@ class _DetailState extends State<DetailScreen> {
                   Container(
                     width: double.maxFinite,
                     decoration: BoxDecoration(
-                      // TODO: 무비 poster 불러오기- (추후)
-                      // image: DecorationImage(
-                      //   image: AssetImage(''),
-                      //   fit: BoxFit.cover,
-                      // )
-                    ),
+                        image: DecorationImage(
+                      image: AssetImage(movieData!.poster),
+                      fit: BoxFit.cover,
+                    )),
                     child: blurDetailPoster(),
                   )
                 ],
@@ -115,5 +107,4 @@ class _DetailState extends State<DetailScreen> {
       ),
     );
   }
-
 }
