@@ -30,9 +30,9 @@ class _DetailState extends State<DetailScreen> {
       width: double.maxFinite,
       decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(movieData!.poster),
-            fit: BoxFit.cover,
-          )),
+        image: AssetImage(movieData!.poster),
+        fit: BoxFit.cover,
+      )),
       child: blurDetailPoster(),
     );
   }
@@ -87,7 +87,7 @@ class _DetailState extends State<DetailScreen> {
         onPressed: () {},
         style: ButtonStyle(
           backgroundColor:
-          MaterialStateProperty.all(Colors.red.withOpacity(1.0)),
+              MaterialStateProperty.all(Colors.red.withOpacity(1.0)),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,30 +101,20 @@ class _DetailState extends State<DetailScreen> {
   }
 
   /* 찜한 콘텐츠 Widget */
-  Widget likeMoiveBtn(){
+  Widget likeMoiveBtn() {
     return Container(
-      color: Colors.black26,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-            child: InkWell(
-              onTap: () {},
-              child: Column(
-                children: [
-                  movieData!.like
-                      ? Icon(Icons.check)
-                      : Icon(Icons.add),
-                  Padding(
-                    padding: EdgeInsets.all(5.0),
-                  ),
-                  subBtnTextStyle('내가 찜한 콘텐츠'),
-                ],
-              ),
+      padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      child: InkWell(
+        onTap: () {},
+        child: Column(
+          children: [
+            movieData!.like ? Icon(Icons.check) : Icon(Icons.add),
+            Padding(
+              padding: EdgeInsets.all(5.0),
             ),
-          ),
-        ],
+            subBtnTextStyle('내가 찜한 콘텐츠'),
+          ],
+        ),
       ),
     );
   }
@@ -137,7 +127,8 @@ class _DetailState extends State<DetailScreen> {
         child: Column(
           children: [
             Icon(Icons.thumb_up),
-            Padding(padding: EdgeInsets.all(5.0),
+            Padding(
+              padding: EdgeInsets.all(5.0),
             ),
             subBtnTextStyle('평가'),
           ],
@@ -154,7 +145,8 @@ class _DetailState extends State<DetailScreen> {
         child: Column(
           children: [
             Icon(Icons.send),
-            Padding(padding: EdgeInsets.all(5.0),
+            Padding(
+              padding: EdgeInsets.all(5.0),
             ),
             subBtnTextStyle('공유'),
           ],
@@ -165,10 +157,12 @@ class _DetailState extends State<DetailScreen> {
 
   /* subBtn title widget */
   Widget subBtnTextStyle(String btnTitle) {
-    return Text(btnTitle, style: TextStyle(
-      fontSize: 11.0,
-      color: Colors.white60,
-    ),
+    return Text(
+      btnTitle,
+      style: TextStyle(
+        fontSize: 11.0,
+        color: Colors.white60,
+      ),
     );
   }
 
@@ -187,10 +181,18 @@ class _DetailState extends State<DetailScreen> {
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                   )),
-                  likeMoiveBtn(),
-                  ratingMoiveBtn(),
-                  sendMovieBtn(),
                 ],
+              ),
+              Container(
+                color: Colors.black26,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    likeMoiveBtn(),
+                    ratingMoiveBtn(),
+                    sendMovieBtn(),
+                  ],
+                ),
               ),
             ],
           ),
