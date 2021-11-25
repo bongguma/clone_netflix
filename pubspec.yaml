@@ -26,6 +26,8 @@ dependencies:
 
   get: ^4.1.0
   carousel_slider:
+  flutter_linkify:
+  url_launcher:
 
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,5 +1,6 @@
 import 'package:clone_netflix/screen/detail_screen.dart';
 import 'package:clone_netflix/screen/netflix_main.dart';
+import 'package:clone_netflix/screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,6 +31,10 @@ class _RootState extends State<Root> {
       GetPage(
         name: '/netflixDetail',
         page: () => DetailScreen(),
+      ),
+      GetPage(
+        name: '/profile',
+        page: () => ProfileScreen(),
       ),
     ];
   }
