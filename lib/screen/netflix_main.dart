@@ -1,5 +1,6 @@
 import 'package:clone_netflix/layout/bottom_bar.dart';
 import 'package:clone_netflix/screen/home_screen.dart';
+import 'package:clone_netflix/screen/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

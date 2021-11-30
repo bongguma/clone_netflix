@@ -5,34 +5,43 @@ import 'dart:ui';
 
 import 'package:get/get.dart';
 
-class DetailScreen extends StatefulWidget{
-
+class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key}) : super(key: key);
-
 
   @override
   _DetailState createState() => _DetailState();
 }
 
-
 class _DetailState extends State<DetailScreen> {
-  var movieData;
+  MovieData? movieData;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    movieData = Get.parameters['title'];
-    print('movieData :: ' + movieData);
+    movieData = Get.arguments as MovieData;
+    print('argument :: ${movieData!.title} content :: ${movieData!.content}');
   }
 
-  Widget blurDetailPoster(){
+  /* movieDetail한 정보 보여주는 Widget */
+  Widget movieDetailInfo() {
+    return Container(
+      width: double.maxFinite,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+        image: AssetImage(movieData!.poster),
+        fit: BoxFit.cover,
+      )),
+      child: blurDetailPoster(),
+    );
+  }
+
+  /* poster 뒷 면 blur 이미지 Widget */
+  Widget blurDetailPoster() {
     return ClipRect(
       child: BackdropFilter(
-        filter: ImageFilter.blur(
-            sigmaX: 10.0, sigmaY: 10.0
-        ),
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
         child: Container(
           alignment: Alignment.center,
           color: Colors.black.withOpacity(0.1),
@@ -41,9 +50,7 @@ class _DetailState extends State<DetailScreen> {
               children: [
                 Container(
                   padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 10.0),
-                  // TODO image asset 대입
-                  child: Container(),
-                  // Image.asset(''),
+                  child: Image.asset(movieData!.poster),
                   height: 300.0,
                 ),
                 Container(
@@ -57,24 +64,7 @@ class _DetailState extends State<DetailScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(3.0),
-                  width: double.infinity/2,
-                  color: Colors.red,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.red.withOpacity(1.0)),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.play_arrow),
-                        Text('재생'),
-                      ],
-                    ),
-                  ),
-                ),
+                playBtn(),
                 Container(
                   padding: EdgeInsets.all(5.0),
                   child: Text(''),
@@ -83,6 +73,95 @@ class _DetailState extends State<DetailScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  /* 재생 버튼 Widget */
+  Widget playBtn() {
+    return Container(
+      padding: EdgeInsets.all(3.0),
+      width: 380,
+      color: Colors.red,
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all(Colors.red.withOpacity(1.0)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.play_arrow),
+            Text('재생'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /* 찜한 콘텐츠 Widget */
+  Widget likeMoiveBtn() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      child: InkWell(
+        onTap: () {},
+        child: Column(
+          children: [
+            movieData!.like ? Icon(Icons.check) : Icon(Icons.add),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+            ),
+            subBtnTextStyle('내가 찜한 콘텐츠'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /* 평가 Widget */
+  Widget ratingMoiveBtn() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      child: Container(
+        child: Column(
+          children: [
+            Icon(Icons.thumb_up),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+            ),
+            subBtnTextStyle('평가'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /* 공유 Widget */
+  Widget sendMovieBtn() {
+    return Container(
+      padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+      child: Container(
+        child: Column(
+          children: [
+            Icon(Icons.send),
+            Padding(
+              padding: EdgeInsets.all(5.0),
+            ),
+            subBtnTextStyle('공유'),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /* subBtn title widget */
+  Widget subBtnTextStyle(String btnTitle) {
+    return Text(
+      btnTitle,
+      style: TextStyle(
+        fontSize: 11.0,
+        color: Colors.white60,
       ),
     );
   }
@@ -96,24 +175,29 @@ class _DetailState extends State<DetailScreen> {
             children: [
               Stack(
                 children: [
-                  Container(
-                    width: double.maxFinite,
-                    decoration: BoxDecoration(
-                      // TODO: 무비 poster 불러오기- (추후)
-                      // image: DecorationImage(
-                      //   image: AssetImage(''),
-                      //   fit: BoxFit.cover,
-                      // )
-                    ),
-                    child: blurDetailPoster(),
-                  )
+                  movieDetailInfo(),
+                  Positioned(
+                      child: AppBar(
+                    backgroundColor: Colors.transparent,
+                    elevation: 0,
+                  )),
                 ],
-              )
+              ),
+              Container(
+                color: Colors.black26,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    likeMoiveBtn(),
+                    ratingMoiveBtn(),
+                    sendMovieBtn(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-
 }
