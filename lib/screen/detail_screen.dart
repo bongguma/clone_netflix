@@ -21,7 +21,7 @@ class _DetailState extends State<DetailScreen> {
     super.initState();
 
     movieData = Get.arguments as MovieData;
-    print('argument :: ${movieData!.title} content :: ${movieData!.content}');
+
   }
 
   /* movieDetail한 정보 보여주는 Widget */

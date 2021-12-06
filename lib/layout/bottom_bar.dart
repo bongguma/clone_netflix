@@ -15,6 +15,7 @@ class BottomBar extends StatelessWidget {
       case 'LATER':
         break;
       case 'SEARCH':
+        Get.toNamed('/search');
         break;
       case 'SAVE':
         Get.toNamed('/profile');
