@@ -27,7 +27,7 @@ class _SearchState extends State<SearchScreen> {
     super.initState();
   }
 
-  Widget _buildBody(BuildContext context){
+  Widget _buildBody(BuildContext context) {
     return Container();
   }
 
@@ -72,7 +72,7 @@ class _SearchState extends State<SearchScreen> {
   }
 
   /* 검색데이터 reset */
-  void resetSearchData(){
+  void resetSearchData() {
     setState(() {
       _searchTc.clear();
       searchText = "";
@@ -83,13 +83,13 @@ class _SearchState extends State<SearchScreen> {
   Widget searchCancelBtn() {
     return focusNode.hasFocus
         ? IconButton(
-        icon: Icon(
-          Icons.cancel,
-          size: 20.0,
-        ),
-        onPressed: () {
-          resetSearchData();
-        })
+            icon: Icon(
+              Icons.cancel,
+              size: 20.0,
+            ),
+            onPressed: () {
+              resetSearchData();
+            })
         : Container();
   }
 
@@ -97,12 +97,12 @@ class _SearchState extends State<SearchScreen> {
   Widget cancelBtn() {
     return focusNode.hasFocus
         ? Expanded(
-        child: TextButton(
-          child: Text('취소'),
-          onPressed: () {
-            resetSearchData();
-          },
-        ))
+            child: TextButton(
+            child: Text('취소'),
+            onPressed: () {
+              resetSearchData();
+            },
+          ))
         : Expanded(flex: 0, child: Container());
   }
 
