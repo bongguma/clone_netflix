@@ -3,6 +3,7 @@ import 'package:clone_netflix/layout/carouse_movie.dart';
 import 'package:clone_netflix/layout/circle_slider.dart';
 import 'package:clone_netflix/layout/top_bar.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,24 +15,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _NetflixHomeState extends State<HomeScreen> {
-  List<MovieData> movieList = [
-    MovieData.fromMap({
-      'title': '사랑의 불시착',
-      'content': '로맨스',
-      'poster': 'images/netflix_poster.png',
-      'like': false,
-    }),
-    MovieData.fromMap({
-      'title': '그 해 여름',
-      'content': '학교생활에 대한 이야기',
-      'poster': 'images/netflix_poster.png',
-      'like': false,
-    })
-  ];
+
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  Stream<QuerySnapshot>? streamData;
 
   @override
   void initState() {
     super.initState();
+
+    streamData = fireStore.collection('movie').snapshots();
+  }
+
+  Widget fetchData(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('movie').snapshots(),
+      builder: (context, snapshot) {
+        if(!snapshot.hasData) return LinearProgressIndicator();
+        return fetchBody(context, snapshot.data!.docs);
+      },
+    );
+  }
+
+  Widget fetchBody(BuildContext context, List<DocumentSnapshot> snapshot) {
+    return Container();
   }
 
   @override
