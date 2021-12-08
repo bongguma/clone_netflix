@@ -16,7 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _NetflixHomeState extends State<HomeScreen> {
 
-  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  Firestore fireStore = Firestore.instance;
   Stream<QuerySnapshot>? streamData;
 
   @override
@@ -28,20 +28,16 @@ class _NetflixHomeState extends State<HomeScreen> {
 
   Widget fetchData(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('movie').snapshots(),
+      stream: Firestore.instance.collection('movie').snapshots(),
       builder: (context, snapshot) {
         if(!snapshot.hasData) return LinearProgressIndicator();
-        return fetchBody(context, snapshot.data!.docs);
+        return fetchBody(context, snapshot.data!.documents);
       },
     );
   }
 
   Widget fetchBody(BuildContext context, List<DocumentSnapshot> snapshot) {
-    return Container();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+    List<MovieData> movieList = snapshot.map((movieData) => MovieData.fromSnapshot(movieData)).toList();
     return ListView(
       children: [
         Stack(
@@ -56,5 +52,10 @@ class _NetflixHomeState extends State<HomeScreen> {
         BoxleSlider(movieList: movieList),
       ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return fetchData(context);
   }
 }

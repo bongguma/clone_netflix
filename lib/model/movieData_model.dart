@@ -16,7 +16,7 @@ class MovieData {
         like = map['like'];
 
   MovieData.fromSnapshot(DocumentSnapshot snapshot)
-      : this.fromMap(json.decode(snapshot.data().toString()), reference: snapshot.reference);
+      : this.fromMap(json.decode(snapshot.data.toString()), reference: snapshot.reference);
 
   @override
   String toString() => "MovieData<$title:$content>";
