@@ -1,3 +1,4 @@
+import 'package:clone_netflix/layout/bottom_bar.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,14 +19,14 @@ class _SearchState extends State<SearchScreen> {
 
   _SearchState() {
     _searchTc.addListener(() {
-      // 상태변화를 감지해 텍스트 변
+      // 상태변화를 감지해 텍스트 변화
       setState(() {
         searchText = _searchTc.text;
       });
     });
   }
 
-  Widget rebuildBody(BuildContext context) {
+  Widget rebuildBody(context) {
     return StreamBuilder<QuerySnapshot>(
       stream: Firestore.instance.collection('movie').snapshots(),
       builder: (context, snapshot) {
@@ -61,15 +62,6 @@ class _SearchState extends State<SearchScreen> {
         Get.toNamed('/netflixDetail', arguments: movieData);
       },
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Widget _buildBody(BuildContext context) {
-    return Container();
   }
 
   /* 검색 텍스트필드 Widget */
@@ -171,6 +163,7 @@ class _SearchState extends State<SearchScreen> {
           ),
         ),
       ),
+      bottomSheet: BottomBar(),
     );
   }
 }
