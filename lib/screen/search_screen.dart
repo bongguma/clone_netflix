@@ -1,5 +1,8 @@
+import 'package:clone_netflix/model/movieData_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -20,6 +23,44 @@ class _SearchState extends State<SearchScreen> {
         searchText = _searchTc.text;
       });
     });
+  }
+
+  Widget rebuildBody(BuildContext context) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection('movie').snapshots(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) return LinearProgressIndicator();
+        return buildList(context, snapshot.data!.documents);
+      },
+    );
+  }
+
+  Widget buildList(context, snapshot) {
+    List<DocumentSnapshot> searchResult = [];
+    for (DocumentSnapshot document in snapshot) {
+      if (document.data.toString().contains(searchText)) {
+        searchResult.add(document);
+      }
+    }
+
+    return Expanded(
+      child: GridView.count(
+        crossAxisCount: 3,
+        childAspectRatio: 1 / 1.5,
+        padding: EdgeInsets.all(3.0),
+        children: searchResult.map((data) => buildListItem(context, data)).toList(),
+      ),
+    );
+  }
+
+  Widget buildListItem(context, data) {
+    final movieData = MovieData.fromSnapshot(data);
+    return InkWell(
+      child: Image.asset(movieData.poster),
+      onTap: () {
+        Get.toNamed('/netflixDetail', arguments: movieData);
+      },
+    );
   }
 
   @override
@@ -83,13 +124,13 @@ class _SearchState extends State<SearchScreen> {
   Widget searchCancelBtn() {
     return focusNode.hasFocus
         ? IconButton(
-            icon: Icon(
-              Icons.cancel,
-              size: 20.0,
-            ),
-            onPressed: () {
-              resetSearchData();
-            })
+        icon: Icon(
+          Icons.cancel,
+          size: 20.0,
+        ),
+        onPressed: () {
+          resetSearchData();
+        })
         : Container();
   }
 
@@ -97,12 +138,12 @@ class _SearchState extends State<SearchScreen> {
   Widget cancelBtn() {
     return focusNode.hasFocus
         ? Expanded(
-            child: TextButton(
-            child: Text('취소'),
-            onPressed: () {
-              resetSearchData();
-            },
-          ))
+        child: TextButton(
+          child: Text('취소'),
+          onPressed: () {
+            resetSearchData();
+          },
+        ))
         : Expanded(flex: 0, child: Container());
   }
 
@@ -124,7 +165,8 @@ class _SearchState extends State<SearchScreen> {
                     cancelBtn(),
                   ],
                 ),
-              )
+              ),
+              rebuildBody(context),
             ],
           ),
         ),
