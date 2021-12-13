@@ -21,7 +21,7 @@ class _DetailState extends State<DetailScreen> {
     super.initState();
 
     movieData = Get.arguments as MovieData;
-    print('argument :: ${movieData!.title} content :: ${movieData!.content}');
+
   }
 
   /* movieDetail한 정보 보여주는 Widget */
@@ -169,32 +169,34 @@ class _DetailState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: SafeArea(
-          child: ListView(
-            children: [
-              Stack(
-                children: [
-                  movieDetailInfo(),
-                  Positioned(
-                      child: AppBar(
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                  )),
-                ],
-              ),
-              Container(
-                color: Colors.black26,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+      body: SafeArea(
+        child: Container(
+          child: SafeArea(
+            child: ListView(
+              children: [
+                Stack(
                   children: [
-                    likeMoiveBtn(),
-                    ratingMoiveBtn(),
-                    sendMovieBtn(),
+                    movieDetailInfo(),
+                    Positioned(
+                        child: AppBar(
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        )),
                   ],
                 ),
-              ),
-            ],
+                Container(
+                  color: Colors.black26,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      likeMoiveBtn(),
+                      ratingMoiveBtn(),
+                      sendMovieBtn(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
