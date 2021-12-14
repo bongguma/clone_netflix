@@ -49,7 +49,8 @@ class _SearchState extends State<SearchScreen> {
         crossAxisCount: 3,
         childAspectRatio: 1 / 1.5,
         padding: EdgeInsets.all(3.0),
-        children: searchResult.map((data) => buildListItem(context, data)).toList(),
+        children:
+            searchResult.map((data) => buildListItem(context, data)).toList(),
       ),
     );
   }
@@ -116,13 +117,13 @@ class _SearchState extends State<SearchScreen> {
   Widget searchCancelBtn() {
     return focusNode.hasFocus
         ? IconButton(
-        icon: Icon(
-          Icons.cancel,
-          size: 20.0,
-        ),
-        onPressed: () {
-          resetSearchData();
-        })
+            icon: Icon(
+              Icons.cancel,
+              size: 20.0,
+            ),
+            onPressed: () {
+              resetSearchData();
+            })
         : Container();
   }
 
@@ -130,12 +131,12 @@ class _SearchState extends State<SearchScreen> {
   Widget cancelBtn() {
     return focusNode.hasFocus
         ? Expanded(
-        child: TextButton(
-          child: Text('취소'),
-          onPressed: () {
-            resetSearchData();
-          },
-        ))
+            child: TextButton(
+            child: Text('취소'),
+            onPressed: () {
+              resetSearchData();
+            },
+          ))
         : Expanded(flex: 0, child: Container());
   }
 

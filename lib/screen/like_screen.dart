@@ -1,3 +1,4 @@
+import 'package:clone_netflix/layout/base_layout.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,10 +13,12 @@ class LikeScreen extends StatefulWidget {
 }
 
 class _LikeState extends State<LikeScreen> {
-
   Widget rebuildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('movie').where('like', isEqualTo: true).snapshots(),
+      stream: Firestore.instance
+          .collection('movie')
+          .where('like', isEqualTo: true)
+          .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
         return buildList(context, snapshot.data!.documents);
@@ -46,31 +49,32 @@ class _LikeState extends State<LikeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(20.0, 27.0, 20.0, 7.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image.asset('',
-                    fit:  BoxFit.contain,
+    return BaseLayout(
+      body: Container(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.fromLTRB(20.0, 27.0, 20.0, 7.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Image.asset(
+                    '',
+                    fit: BoxFit.contain,
                     height: 25.0,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 30),
+                    child: Text(
+                      '내가 찜한 콘텐츠',
+                      style: TextStyle(fontSize: 14.0),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(left: 30),
-                      child: Text('내가 찜한 콘텐츠',
-                      style: TextStyle(fontSize: 14.0),),
-                    )
-                  ],
-                ),
+                  )
+                ],
               ),
-              rebuildBody(context),
-            ],
-          ),
+            ),
+            rebuildBody(context),
+          ],
         ),
       ),
     );
