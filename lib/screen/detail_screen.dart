@@ -197,5 +197,5 @@ class _DetailState extends State<DetailScreen> {
         ),
       ),
     );
-  }m
+  }
 }
