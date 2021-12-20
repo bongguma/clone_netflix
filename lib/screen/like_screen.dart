@@ -32,15 +32,18 @@ class _LikeState extends State<LikeScreen> {
         crossAxisCount: 3,
         childAspectRatio: 1 / 1.5,
         padding: EdgeInsets.all(3.0),
-        children: snapshot.map((data) => buildListItem(context, data)).toList(),
+        children: snapshot.map((data) => posterItem(context, data)).toList(),
       ),
     );
   }
 
-  Widget buildListItem(context, data) {
+  Widget posterItem(context, data) {
     final movieData = MovieData.fromSnapshot(data);
     return InkWell(
-      child: Image.asset(movieData.poster),
+      child: Padding(
+        padding: EdgeInsets.only(right: 8.0),
+        child: Image.asset(movieData.poster),
+      ),
       onTap: () {
         Get.toNamed('/netflixDetail', arguments: movieData);
       },

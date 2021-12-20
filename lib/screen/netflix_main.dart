@@ -1,7 +1,6 @@
 import 'package:clone_netflix/layout/base_layout.dart';
 import 'package:clone_netflix/layout/bottom_bar.dart';
 import 'package:clone_netflix/screen/home_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class NetflixMain extends StatefulWidget {
@@ -24,19 +23,9 @@ class _NetflixMainState extends State<NetflixMain>
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 4,
-      child: BaseLayout(
-        body: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            children: <Widget>[
-              HomeScreen(),
-              Container(),
-              Container(),
-              Container(),
-            ]),
-        bottomBar: BottomBar(),
-      ),
+    return BaseLayout(
+      body: HomeScreen(),
+      bottomBar: BottomBar(),
     );
   }
 }
