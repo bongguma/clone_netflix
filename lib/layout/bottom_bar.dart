@@ -1,3 +1,4 @@
+import 'package:clone_netflix/screen/like_screen.dart';
 import 'package:clone_netflix/screen/netflix_main.dart';
 import 'package:clone_netflix/screen/profile_screen.dart';
 import 'package:clone_netflix/screen/search_screen.dart';
@@ -16,6 +17,7 @@ class BottomBar extends StatelessWidget {
         Get.offAll(NetflixMain());
         break;
       case 'LATER':
+        Get.offAll(LikeScreen());
         break;
       case 'SEARCH':
         Get.offAll(SearchScreen());
@@ -61,7 +63,7 @@ class BottomBar extends StatelessWidget {
       child: Row(
         children: [
           bottomNaviBarItem('HOME', Icons.home, '홈'),
-          bottomNaviBarItem('LATER', Icons.home, '공개예정'),
+          bottomNaviBarItem('LATER', Icons.home, '내가 찜한 콘텐츠'),
           bottomNaviBarItem('SEARCH', Icons.search, '검색'),
           bottomNaviBarItem('SAVE', Icons.arrow_downward_rounded, '저장한 콘텍츠 목록'),
         ],
