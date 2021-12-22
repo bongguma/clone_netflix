@@ -7,15 +7,13 @@ import 'package:get/get.dart';
 
 class DataStore extends StatelessWidget {
   final ServiceName serviceName;
+  final String? searchText;
 
-  const DataStore({required this.serviceName});
+  const DataStore({required this.serviceName, this.searchText});
 
   Widget rebuildBody() {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance
-          .collection('movie')
-          .where('like', isEqualTo: true)
-          .snapshots(),
+      stream: ConnectedService(serviceName),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
         return buildList(context, snapshot.data!.documents);
@@ -24,14 +22,30 @@ class DataStore extends StatelessWidget {
   }
 
   Widget buildList(context, snapshot) {
-    return Expanded(
-      child: GridView.count(
-        crossAxisCount: 3,
-        childAspectRatio: 1 / 1.5,
-        padding: EdgeInsets.all(3.0),
-        children: snapshot.map((data) => posterItem(context, data)).toList(),
-      ),
-    );
+    List<DocumentSnapshot> searchResult = [];
+
+    if (serviceName == ServiceName.MOVIE) {
+      for (DocumentSnapshot document in snapshot) {
+        if (document.data.toString().contains(searchText!)) {
+          searchResult.add(document);
+        }
+      }
+    }
+
+    return snapshot.toString().isEmpty
+        ? Expanded(
+            child: GridView.count(
+              crossAxisCount: 3,
+              childAspectRatio: 1 / 1.5,
+              padding: EdgeInsets.all(3.0),
+              children: serviceName == ServiceName.MOVIE
+                  ? searchResult
+                      .map((data) => posterItem(context, data))
+                      .toList()
+                  : snapshot.map((data) => posterItem(context, data)).toList(),
+            ),
+          )
+        : Container();
   }
 
   Widget posterItem(context, data) {
