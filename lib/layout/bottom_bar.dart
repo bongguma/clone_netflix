@@ -1,6 +1,9 @@
+import 'package:clone_netflix/screen/like_screen.dart';
+import 'package:clone_netflix/screen/netflix_main.dart';
+import 'package:clone_netflix/screen/profile_screen.dart';
+import 'package:clone_netflix/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 class BottomBar extends StatelessWidget {
   const BottomBar({
@@ -11,14 +14,16 @@ class BottomBar extends StatelessWidget {
   movePage(String type) {
     switch (type) {
       case 'HOME':
+        Get.offAll(NetflixMain());
         break;
       case 'LATER':
+        Get.offAll(LikeScreen());
         break;
       case 'SEARCH':
-        Get.toNamed('/search');
+        Get.offAll(SearchScreen());
         break;
       case 'SAVE':
-        Get.toNamed('/profile');
+        Get.offAll(ProfileScreen());
         break;
     }
   }
@@ -43,22 +48,12 @@ class BottomBar extends StatelessWidget {
             ),
             Text(
               title,
-              style: TextStyle(
-                  fontSize: 9.0, color: Color(0xFF6F6F6F)),
+              style: TextStyle(fontSize: 9.0, color: Color(0xFF6F6F6F)),
             )
           ],
         ),
       ),
     );
-  }
-
-  goToHomeViewFloatingActBtn() {
-    return Container(
-        margin: EdgeInsets.only(top: 35),
-        child: FloatingActionButton(
-          child: Text('Clone'),
-          onPressed: () {},
-        ));
   }
 
   @override
@@ -68,7 +63,7 @@ class BottomBar extends StatelessWidget {
       child: Row(
         children: [
           bottomNaviBarItem('HOME', Icons.home, '홈'),
-          bottomNaviBarItem('LATER', Icons.home, '공개예정'),
+          bottomNaviBarItem('LATER', Icons.home, '내가 찜한 콘텐츠'),
           bottomNaviBarItem('SEARCH', Icons.search, '검색'),
           bottomNaviBarItem('SAVE', Icons.arrow_downward_rounded, '저장한 콘텍츠 목록'),
         ],

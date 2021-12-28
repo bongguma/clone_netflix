@@ -1,3 +1,4 @@
+import 'package:clone_netflix/layout/base_layout.dart';
 import 'package:clone_netflix/layout/bottom_bar.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -49,15 +50,19 @@ class _SearchState extends State<SearchScreen> {
         crossAxisCount: 3,
         childAspectRatio: 1 / 1.5,
         padding: EdgeInsets.all(3.0),
-        children: searchResult.map((data) => buildListItem(context, data)).toList(),
+        children:
+            searchResult.map((data) => posterItem(context, data)).toList(),
       ),
     );
   }
 
-  Widget buildListItem(context, data) {
+  Widget posterItem(context, data) {
     final movieData = MovieData.fromSnapshot(data);
     return InkWell(
-      child: Image.asset(movieData.poster),
+      child: Padding(
+        padding: EdgeInsets.only(right: 8.0),
+        child: Image.asset(movieData.poster),
+      ),
       onTap: () {
         Get.toNamed('/netflixDetail', arguments: movieData);
       },
@@ -116,13 +121,13 @@ class _SearchState extends State<SearchScreen> {
   Widget searchCancelBtn() {
     return focusNode.hasFocus
         ? IconButton(
-        icon: Icon(
-          Icons.cancel,
-          size: 20.0,
-        ),
-        onPressed: () {
-          resetSearchData();
-        })
+            icon: Icon(
+              Icons.cancel,
+              size: 20.0,
+            ),
+            onPressed: () {
+              resetSearchData();
+            })
         : Container();
   }
 
@@ -130,40 +135,36 @@ class _SearchState extends State<SearchScreen> {
   Widget cancelBtn() {
     return focusNode.hasFocus
         ? Expanded(
-        child: TextButton(
-          child: Text('취소'),
-          onPressed: () {
-            resetSearchData();
-          },
-        ))
+            child: TextButton(
+            child: Text('취소'),
+            onPressed: () {
+              resetSearchData();
+            },
+          ))
         : Expanded(flex: 0, child: Container());
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Container(
-          child: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: searchTextField(),
-                    ),
-                    cancelBtn(),
-                  ],
+    return BaseLayout(
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.fromLTRB(5.0, 10.0, 5.0, 10.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 6,
+                  child: searchTextField(),
                 ),
-              ),
-              rebuildBody(context),
-            ],
+                cancelBtn(),
+              ],
+            ),
           ),
-        ),
+          rebuildBody(context),
+        ],
       ),
-      bottomSheet: BottomBar(),
+      bottomBar: BottomBar(),
     );
   }
 }

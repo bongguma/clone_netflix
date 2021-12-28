@@ -18,11 +18,9 @@ class _RootState extends State<Root> {
   @override
   void initState() {
     super.initState();
-
   }
 
   List<GetPage> renderPages() {
-
     return [
       GetPage(
         name: '/netflixMain',
