@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 class BaseLayout extends StatefulWidget {
   final Widget body;
   final Widget? bottomBar;
+  final bool? isCloseApp;
 
-  const BaseLayout({required this.body, this.bottomBar});
+  const BaseLayout(
+      {required this.body, this.bottomBar, this.isCloseApp = false});
 
   @override
   _BaseState createState() => _BaseState();
@@ -56,7 +58,7 @@ class _BaseState extends State<BaseLayout> {
         child: SafeArea(
           child: widget.body,
         ),
-        onWillPop: Platform.isAndroid ? closeAppAction : null,
+        onWillPop: widget.isCloseApp! ? closeAppAction : null,
       ),
       bottomNavigationBar: widget.bottomBar,
     );
