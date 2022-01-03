@@ -79,23 +79,15 @@ class _DetailState extends State<DetailScreen> {
 
   /* 재생 버튼 Widget */
   Widget playBtn() {
-    return Container(
-      padding: EdgeInsets.all(3.0),
-      width: 380,
-      color: Colors.red,
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ButtonStyle(
-          backgroundColor:
-              MaterialStateProperty.all(Colors.red.withOpacity(1.0)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.play_arrow),
-            Text('재생'),
-          ],
-        ),
+    return ElevatedButton.icon(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        primary: Colors.red,
+      ),
+      icon: Icon(Icons.play_arrow, color: Colors.white),
+      label: Text(
+        '재생',
+        style: TextStyle(color: Colors.white),
       ),
     );
   }
