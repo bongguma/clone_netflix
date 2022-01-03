@@ -2,7 +2,7 @@ import 'package:clone_netflix/model/movieData_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class CircleSlider extends StatelessWidget{
+class CircleSlider extends StatelessWidget {
   final List<MovieData> movieList;
 
   CircleSlider({required this.movieList});
@@ -16,36 +16,33 @@ class CircleSlider extends StatelessWidget{
         children: [
           Text('미리보기'),
           Container(
-            height: 120.0,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: makeCircleImageList(movieList),
-            )
-          )
+              height: 120.0,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: makeCircleImageList(movieList),
+              ))
         ],
       ),
     );
   }
 }
 
-List<Widget> makeCircleImageList(List<MovieData> movieList){
+List<Widget> makeCircleImageList(List<MovieData> movieList) {
   List<Widget> resultList = [];
 
   for (var i = 0; i < movieList.length; i++) {
-    resultList.add(
-        InkWell(
-          onTap: () {},
-          child: Container(
-            padding: EdgeInsets.only(right: 10.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: CircleAvatar(
-                backgroundImage: AssetImage(movieList[i].poster),
-              ),
-            ),
+    resultList.add(InkWell(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.only(right: 10.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: CircleAvatar(
+            backgroundImage: AssetImage(movieList[i].poster),
           ),
-        )
-    );
+        ),
+      ),
+    ));
   }
 
   return resultList;
