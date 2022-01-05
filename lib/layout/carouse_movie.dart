@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,6 +17,7 @@ class CarouseMovie extends StatefulWidget {
 }
 
 class _CarouseMovieState extends State<CarouseMovie> {
+  Firestore firestore = Firestore.instance;
   List<MovieData>? movieList;
   List<Widget>? imageList;
   List<String>? titleList;
@@ -47,12 +51,18 @@ class _CarouseMovieState extends State<CarouseMovie> {
 
   // 콘텐츠 찜하는 기능
   Widget addContents() {
+    double _width = 50, _height = 50;
     return Container(
       child: Column(
         children: [
           likeList![_currentPage]
               ? IconButton(icon: Icon(Icons.check), onPressed: () {})
-              : IconButton(icon: Icon(Icons.add), onPressed: () {}),
+              : IconButton(icon: Icon(Icons.add), onPressed: () {
+                setState(() {
+                  firestore.collection('movie').
+                  document('movie1').updateData({'like': true});
+                });
+          }),
           Text(
             '내가 찜한 콘텐츠',
             style: TextStyle(fontSize: 11.0),
