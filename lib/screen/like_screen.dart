@@ -17,6 +17,7 @@ class _LikeState extends State<LikeScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      isCloseApp: true,
       body: Column(
         children: [
           Container(

@@ -45,26 +45,15 @@ class ProfileScreen extends StatelessWidget {
 
   /* profile modify widget */
   Widget modifyProfileBtn() {
-    return Container(
-      padding: EdgeInsets.all(8.0),
-      color: Colors.red,
-      child: TextButton(
-        onPressed: () {},
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.edit, color: Colors.white),
-              SizedBox(
-                width: 8.0,
-              ),
-              Text(
-                '프로필 수정하기',
-                style: TextStyle(color: Colors.white),
-              ),
-            ],
-          ),
-        ),
+    return ElevatedButton.icon(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+        primary: Colors.red,
+      ),
+      icon: Icon(Icons.edit, color: Colors.white),
+      label: Text(
+        '프로필 수정하기',
+        style: TextStyle(color: Colors.white),
       ),
     );
   }
@@ -72,6 +61,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      isCloseApp: true,
       body: Center(
         child: Column(
           children: [

@@ -2,7 +2,6 @@ import 'package:clone_netflix/layout/base_layout.dart';
 import 'package:clone_netflix/layout/bottom_bar.dart';
 import 'package:clone_netflix/model/movieData_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -131,22 +130,10 @@ class _SearchState extends State<SearchScreen> {
         : Container();
   }
 
-  /* 검색 취소 Btn */
-  Widget cancelBtn() {
-    return focusNode.hasFocus
-        ? Expanded(
-            child: TextButton(
-            child: Text('취소'),
-            onPressed: () {
-              resetSearchData();
-            },
-          ))
-        : Expanded(flex: 0, child: Container());
-  }
-
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      isCloseApp: true,
       body: Column(
         children: [
           Container(
@@ -157,7 +144,6 @@ class _SearchState extends State<SearchScreen> {
                   flex: 6,
                   child: searchTextField(),
                 ),
-                cancelBtn(),
               ],
             ),
           ),

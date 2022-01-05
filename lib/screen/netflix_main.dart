@@ -24,6 +24,7 @@ class _NetflixMainState extends State<NetflixMain>
   @override
   Widget build(BuildContext context) {
     return BaseLayout(
+      isCloseApp: true,
       body: HomeScreen(),
       bottomBar: BottomBar(),
     );
