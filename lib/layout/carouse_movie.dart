@@ -57,12 +57,16 @@ class _CarouseMovieState extends State<CarouseMovie> {
         children: [
           likeList![_currentPage]
               ? IconButton(icon: Icon(Icons.check), onPressed: () {})
-              : IconButton(icon: Icon(Icons.add), onPressed: () {
-                setState(() {
-                  firestore.collection('movie').
-                  document('movie1').updateData({'like': true});
-                });
-          }),
+              : IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    setState(() {
+                      firestore
+                          .collection('movie')
+                          .document('movie${_currentPage + 1}')
+                          .updateData({'like': true});
+                    });
+                  }),
           Text(
             '내가 찜한 콘텐츠',
             style: TextStyle(fontSize: 11.0),
