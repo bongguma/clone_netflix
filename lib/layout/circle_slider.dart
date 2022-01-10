@@ -1,4 +1,4 @@
-import 'package:clone_netflix/model/movieData_model.dart';
+import 'package:clone_netflix/model/movie_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

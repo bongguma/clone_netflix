@@ -1,5 +1,6 @@
 import 'package:clone_netflix/enum/service_name.dart';
-import 'package:clone_netflix/model/movieData_model.dart';
+import 'package:clone_netflix/model/movie_data.dart';
+import 'package:clone_netflix/model/movie_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
