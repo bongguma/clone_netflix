@@ -1,7 +1,8 @@
 import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:clone_netflix/model/movieData_model.dart';
+import 'package:clone_netflix/controller/firebase_controller.dart';
+import 'package:clone_netflix/model/movie_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,27 +52,34 @@ class _CarouseMovieState extends State<CarouseMovie> {
 
   // 콘텐츠 찜하는 기능
   Widget addContents() {
-    double _width = 50, _height = 50;
-    return Container(
-      child: Column(
-        children: [
-          likeList![_currentPage]
-              ? IconButton(icon: Icon(Icons.check), onPressed: () {})
-              : IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () {
-                    setState(() {
-                      firestore
-                          .collection('movie')
-                          .document('movie${_currentPage + 1}')
-                          .updateData({'like': true});
-                    });
-                  }),
-          Text(
-            '내가 찜한 콘텐츠',
-            style: TextStyle(fontSize: 11.0),
-          )
-        ],
+    return GetBuilder<FirebaseController>(
+      builder: (_) => Container(
+        child: Column(
+          children: [
+            likeList![_currentPage]
+                ? IconButton(icon: Icon(Icons.check), onPressed: () {})
+                : IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () {
+                      setState(() {
+                        Get.find<FirebaseController>()
+                            .changeMovieLike(_currentPage);
+
+                        Get.find<FirebaseController>()
+                            .changeMovieLike(_currentPage);
+
+                        movieList = _.movieList;
+                        print('movieList :: ${movieList!.isEmpty.toString()}');
+                        likeList =
+                            movieList!.map((movie) => movie.like).toList();
+                      });
+                    }),
+            Text(
+              '내가 찜한 콘텐츠',
+              style: TextStyle(fontSize: 11.0),
+            )
+          ],
+        ),
       ),
     );
   }

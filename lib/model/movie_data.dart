@@ -1,13 +1,13 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MovieData {
-  String? title;
-  String? content;
-  String? poster;
-  bool? like;
-  DocumentReference? reference;
-
-  MovieData({this.title, this.content, this.poster, this.like, this.reference});
+  final String title;
+  final String content;
+  final String poster;
+  final bool like;
+  final DocumentReference reference;
 
   MovieData.fromMap(Map<String, dynamic> map, {required this.reference})
       : title = map['title'],
