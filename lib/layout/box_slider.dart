@@ -1,8 +1,8 @@
-import 'package:clone_netflix/model/movieData_model.dart';
+import 'package:clone_netflix/model/movie_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BoxleSlider extends StatelessWidget{
+class BoxleSlider extends StatelessWidget {
   final List<MovieData> movieList;
 
   BoxleSlider({required this.movieList});
@@ -20,30 +20,27 @@ class BoxleSlider extends StatelessWidget{
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: makeBoxImageList(movieList),
-              )
-          )
+              ))
         ],
       ),
     );
   }
 }
 
-List<Widget> makeBoxImageList(List<MovieData> movieList){
+List<Widget> makeBoxImageList(List<MovieData> movieList) {
   List<Widget> resultList = [];
 
   for (var i = 0; i < movieList.length; i++) {
-    resultList.add(
-        InkWell(
-          onTap: () {},
-          child: Container(
-            padding: EdgeInsets.only(right: 10.0),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Image.asset(movieList[i].poster),
-            ),
-          ),
-        )
-    );
+    resultList.add(InkWell(
+      onTap: () {},
+      child: Container(
+        padding: EdgeInsets.only(right: 10.0),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Image.asset(movieList[i].poster),
+        ),
+      ),
+    ));
   }
 
   return resultList;

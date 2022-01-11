@@ -1,6 +1,6 @@
 import 'package:clone_netflix/layout/base_layout.dart';
 import 'package:clone_netflix/layout/bottom_bar.dart';
-import 'package:clone_netflix/model/movieData_model.dart';
+import 'package:clone_netflix/model/movie_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
