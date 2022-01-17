@@ -1,4 +1,3 @@
-import 'package:clone_netflix/controller/firebase_controller.dart';
 import 'package:clone_netflix/layout/box_slider.dart';
 import 'package:clone_netflix/layout/carouse_movie.dart';
 import 'package:clone_netflix/layout/circle_slider.dart';
@@ -40,28 +39,20 @@ class _NetflixHomeState extends State<HomeScreen> {
   Widget fetchBody(BuildContext context, List<DocumentSnapshot> snapshot) {
     List<MovieData> movieList =
         snapshot.map((movieData) => MovieData.fromSnapshot(movieData)).toList();
-    return GetBuilder<FirebaseController>(
-        init: FirebaseController(),
-        builder: (_) => ListView(
-              children: [
-                Stack(
-                  children: [
-                    CarouseMovie(
-                      movieList: movieList,
-                    ),
-                    TopBar(),
-                  ],
-                ),
-                CircleSlider(movieList: movieList),
-                BoxleSlider(movieList: movieList),
-                TextButton(
-                    onPressed: () {
-                      print(
-                          'get ::${Get.find<FirebaseController>().readMovieDataList}');
-                    },
-                    child: Text('click')),
-              ],
-            ));
+    return ListView(
+      children: [
+        Stack(
+          children: [
+            CarouseMovie(
+              movieList: movieList,
+            ),
+            TopBar(),
+          ],
+        ),
+        CircleSlider(movieList: movieList),
+        BoxleSlider(movieList: movieList),
+      ],
+    );
   }
 
   @override

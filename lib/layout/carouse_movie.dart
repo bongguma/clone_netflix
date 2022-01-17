@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:clone_netflix/controller/firebase_controller.dart';
 import 'package:clone_netflix/model/movie_data.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -50,36 +49,48 @@ class _CarouseMovieState extends State<CarouseMovie> {
         ));
   }
 
+  // 좋아하는 컨텐츠 비동기식 데이터 전환
+  Future _changeLike(currentPage) async {
+    await Firestore.instance
+        .collection('movie')
+        .document('movie${currentPage + 1}')
+        .updateData({'like': likeList![_currentPage] ? false : true});
+
+    await Firestore.instance
+        .collection('movie')
+        .getDocuments()
+        .then((snapshot) {
+      movieList = snapshot.documents
+          .map((movieData) => MovieData.fromSnapshot(movieData))
+          .toList();
+    });
+
+    setState(() {
+      likeList = movieList!.map((movie) => movie.like).toList();
+    });
+  }
+
   // 콘텐츠 찜하는 기능
   Widget addContents() {
-    return GetBuilder<FirebaseController>(
-      builder: (_) => Container(
-        child: Column(
-          children: [
-            likeList![_currentPage]
-                ? IconButton(icon: Icon(Icons.check), onPressed: () {})
-                : IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      setState(() {
-                        Get.find<FirebaseController>()
-                            .changeMovieLike(_currentPage);
-
-                        Get.find<FirebaseController>()
-                            .changeMovieLike(_currentPage);
-
-                        movieList = _.movieList;
-                        print('movieList :: ${movieList!.isEmpty.toString()}');
-                        likeList =
-                            movieList!.map((movie) => movie.like).toList();
-                      });
-                    }),
-            Text(
-              '내가 찜한 콘텐츠',
-              style: TextStyle(fontSize: 11.0),
-            )
-          ],
-        ),
+    return Container(
+      child: Column(
+        children: [
+          likeList![_currentPage]
+              ? IconButton(
+                  icon: Icon(Icons.check),
+                  onPressed: () {
+                    _changeLike(_currentPage);
+                  })
+              : IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () {
+                    _changeLike(_currentPage);
+                  }),
+          Text(
+            '내가 찜한 콘텐츠',
+            style: TextStyle(fontSize: 11.0),
+          )
+        ],
       ),
     );
   }
